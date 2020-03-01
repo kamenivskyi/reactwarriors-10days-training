@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { moviesData } from '../moviesData';
+
 import MovieItem from './MovieItem';
 
 export default class MovieList extends Component {
-  state = {
-    movies: moviesData
-  };
-
   render() {
-    const { movies } = this.state;
+    const { movies, handleDeleteMovie } = this.props;
+
     return (
       <div className='row'>
         {movies.map(item => (
-          <MovieItem item={item} key={item.id} />
+          <MovieItem
+            item={item}
+            key={item.id}
+            onDeleteMovie={handleDeleteMovie}
+          />
         ))}
       </div>
     );
