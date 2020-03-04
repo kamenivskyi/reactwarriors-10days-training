@@ -3,13 +3,22 @@ import React, { Component } from 'react';
 import MovieList from './MovieList';
 import WillWatchList from './WillWatchList';
 
-import { moviesData } from '../moviesData';
+import { getData } from '../services/api/getData';
+import { API_KEY } from '../services/api/config';
 
 class App extends Component {
   state = {
-    movies: moviesData,
-    moviesWillWatch: []
+    movies: [],
+    moviesWillWatch: [],
+    loading: false
   };
+
+  componentDidMount() {
+    this.setState({ loading: true });
+    getData(
+      `movie/popular?api_key=${API_KEY}&language=en-US&page=1`
+    ).then(({ results }) => this.setState({ movies: results, loading: false }));
+  }
 
   handleDeleteMovie = id => {
     const newArr = this.state.movies.filter(item => item.id !== id);
@@ -32,7 +41,11 @@ class App extends Component {
   };
 
   render() {
-    const { movies, moviesWillWatch } = this.state;
+    const { movies, moviesWillWatch, loading } = this.state;
+
+    if (loading) {
+      return <h2>Loading..</h2>;
+    }
 
     return (
       <div className='container-fluid'>
