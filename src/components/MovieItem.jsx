@@ -17,7 +17,11 @@ class MovieItem extends React.Component {
   };
 
   render() {
-    const { title, poster_path, vote_average, backdrop_path } = this.props.item;
+    const {
+      item: { title, poster_path, vote_average, backdrop_path },
+      onDeleteMovie,
+      item
+    } = this.props;
 
     const { isWillWatch } = this.state;
 
@@ -33,6 +37,7 @@ class MovieItem extends React.Component {
               <button
                 className='btn btn-success'
                 onClick={this.toggleWillWatch}
+                style={{ display: 'block', marginBottom: '20px' }}
               >
                 Remove willwatch
               </button>
@@ -42,12 +47,12 @@ class MovieItem extends React.Component {
               </button>
             )}
 
-            {/* <button
+            <button
               className='btn btn-danger'
-              onClick={() => onDeleteMovie(id)}
+              onClick={() => onDeleteMovie(item)}
             >
               Delete movie
-            </button> */}
+            </button>
           </div>
         </div>
       </div>

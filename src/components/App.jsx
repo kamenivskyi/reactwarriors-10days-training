@@ -20,10 +20,11 @@ class App extends Component {
     ).then(({ results }) => this.setState({ movies: results, loading: false }));
   }
 
-  handleDeleteMovie = id => {
-    const newArr = this.state.movies.filter(item => item.id !== id);
+  handleDeleteMovie = movie => {
+    const updateMovies = this.state.movies.filter(item => item.id !== movie.id);
+    this.deleteFromWillWatch(movie);
 
-    this.setState({ movies: newArr });
+    this.setState({ movies: updateMovies });
   };
 
   addToWillWatch = movie => {
