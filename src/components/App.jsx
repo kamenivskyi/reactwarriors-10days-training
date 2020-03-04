@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 
-import MovieList from './components/MovieList';
-import WillWatchList from './components/WillWatchList';
+import MovieList from './MovieList';
+import WillWatchList from './WillWatchList';
 
-import { moviesData } from './moviesData';
-
-import './App.css';
+import { moviesData } from '../moviesData';
 
 class App extends Component {
   state = {

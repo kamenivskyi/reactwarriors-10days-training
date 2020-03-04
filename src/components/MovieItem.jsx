@@ -5,32 +5,18 @@ class MovieItem extends React.Component {
     isWillWatch: false
   };
 
-  onAddToWillwatch = () => {
-    this.setState(
-      () => ({
-        isWillWatch: true
-      }),
-      () => {
-        this.props.addToWillWatch(this.props.item);
-      }
-    );
-  };
+  toggleWillWatch = () => {
+    const { item, deleteFromWillWatch, addToWillWatch } = this.props;
 
-  onDeleteFromWillwatch = () => {
-    this.setState(
-      () => ({
-        isWillWatch: false
-      }),
-      () => {
-        this.props.deleteFromWillWatch(this.props.item);
-      }
-    );
+    this.setState(({ isWillWatch }) => ({
+      isWillWatch: !isWillWatch
+    }));
+
+    this.state.isWillWatch ? deleteFromWillWatch(item) : addToWillWatch(item);
   };
 
   render() {
-    const { item, onDeleteMovie, addToWillWatch } = this.props;
-
-    const { title, poster_path, vote_average, id } = item;
+    const { title, poster_path, vote_average, backdrop_path } = this.props.item;
 
     const { isWillWatch } = this.state;
 
@@ -38,23 +24,24 @@ class MovieItem extends React.Component {
       <div className='col-sm-6 col-md-4 my-2'>
         <div className='card' style={{ width: '100%' }}>
           <img
-            src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
+            src={`https://image.tmdb.org/t/p/w300/${backdrop_path ||
+              poster_path}`}
             className='card-img-top'
             alt={title}
           />
           <div className='card-body'>
             <h5 className='card-title'>{title}</h5>
-            <p className='card-text'>Vote: {vote_average}</p>
+            <p className='card-text'>Rating: {vote_average}</p>
 
             {isWillWatch ? (
               <button
                 className='btn btn-success'
-                onClick={this.onDeleteFromWillwatch}
+                onClick={this.toggleWillWatch}
               >
                 Remove willwatch
               </button>
             ) : (
-              <button className='btn btn-dark' onClick={this.onAddToWillwatch}>
+              <button className='btn btn-dark' onClick={this.toggleWillWatch}>
                 Will watch
               </button>
             )}

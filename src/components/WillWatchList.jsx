@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class WillWatchList extends Component {
+class WillWatchList extends Component {
   render() {
     const { list } = this.props;
 
@@ -8,9 +8,10 @@ export default class WillWatchList extends Component {
       <div className='col-3'>
         <ul className='list-group sticky-top'>
           <h5> Will Watch: {list.length} movies</h5>
-          {list.map(item => (
-            <li className='list-group-item' key={item.id}>
-              {item.title} {item.vote_average}
+
+          {list.map(({ title, vote_average, id }) => (
+            <li className='list-group-item' key={id}>
+              {title} <span className='ml-auto'>Rating: {vote_average}</span>
             </li>
           ))}
         </ul>
@@ -18,3 +19,5 @@ export default class WillWatchList extends Component {
     );
   }
 }
+
+export default WillWatchList;
