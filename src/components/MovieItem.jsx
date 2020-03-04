@@ -1,5 +1,7 @@
 import React from 'react';
+
 import ItemImage from './ItemImage';
+import Button from './Button';
 
 class MovieItem extends React.Component {
   state = {
@@ -29,30 +31,32 @@ class MovieItem extends React.Component {
       <div className='col-sm-6 col-md-4 my-2'>
         <div className='card' style={{ width: '100%' }}>
           <ItemImage src={backdrop_path || poster_path} alt={title} />
+
           <div className='card-body'>
             <h5 className='card-title'>{title}</h5>
             <p className='card-text'>Rating: {vote_average}</p>
 
             {isWillWatch ? (
-              <button
-                className='btn btn-success'
+              <Button
+                label='Remove willwatch'
+                colorType='success'
                 onClick={this.toggleWillWatch}
-                style={{ display: 'block', marginBottom: '20px' }}
-              >
-                Remove willwatch
-              </button>
+                block
+              />
             ) : (
-              <button className='btn btn-dark' onClick={this.toggleWillWatch}>
-                Will watch
-              </button>
+              <Button
+                label='Will watch'
+                colorType='dark'
+                onClick={this.toggleWillWatch}
+                block
+              />
             )}
 
-            <button
-              className='btn btn-danger'
+            <Button
+              label='Delete movie'
+              colorType='danger'
               onClick={() => onDeleteMovie(item)}
-            >
-              Delete movie
-            </button>
+            />
           </div>
         </div>
       </div>
