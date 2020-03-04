@@ -36,7 +36,7 @@ class App extends Component {
 
     return (
       <div className='container-fluid'>
-        <div className='row'>
+        <div className='row pt-4'>
           <MovieList
             movies={movies}
             handleDeleteMovie={this.handleDeleteMovie}

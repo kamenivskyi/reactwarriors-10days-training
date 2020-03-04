@@ -1,4 +1,5 @@
 import React from 'react';
+import ItemImage from './ItemImage';
 
 class MovieItem extends React.Component {
   state = {
@@ -23,12 +24,7 @@ class MovieItem extends React.Component {
     return (
       <div className='col-sm-6 col-md-4 my-2'>
         <div className='card' style={{ width: '100%' }}>
-          <img
-            src={`https://image.tmdb.org/t/p/w300/${backdrop_path ||
-              poster_path}`}
-            className='card-img-top'
-            alt={title}
-          />
+          <ItemImage src={backdrop_path || poster_path} alt={title} />
           <div className='card-body'>
             <h5 className='card-title'>{title}</h5>
             <p className='card-text'>Rating: {vote_average}</p>
