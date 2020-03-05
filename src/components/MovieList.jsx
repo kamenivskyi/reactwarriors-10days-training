@@ -7,22 +7,20 @@ const MovieList = ({
   handleDeleteMovie,
   deleteFromWillWatch,
   addToWillWatch
-}) => {
-  return (
-    <div className='col-9'>
-      <div className='row'>
-        {movies.map(item => (
-          <MovieItem
-            item={item}
-            onDeleteMovie={handleDeleteMovie}
-            deleteFromWillWatch={deleteFromWillWatch}
-            addToWillWatch={addToWillWatch}
-            key={item.id}
-          />
-        ))}
-      </div>
+}) => (
+  <div className='col-9'>
+    <div className='row'>
+      {movies.map(item => (
+        <MovieItem
+          item={item}
+          onDeleteMovie={handleDeleteMovie}
+          deleteFromWillWatch={deleteFromWillWatch}
+          addToWillWatch={addToWillWatch}
+          key={item.id}
+        />
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 export default MovieList;
