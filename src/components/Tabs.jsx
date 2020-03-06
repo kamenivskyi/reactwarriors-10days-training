@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Tab from './Tab';
 
@@ -14,5 +15,11 @@ const Tabs = ({ tabs, tabSelected, handleSelectTab }) => (
     ))}
   </nav>
 );
+
+Tabs.propTypes = {
+  tabs: PropTypes.array.isRequired,
+  tabSelected: PropTypes.string.isRequired,
+  handleSelectTab: PropTypes.func.isRequired
+};
 
 export default Tabs;

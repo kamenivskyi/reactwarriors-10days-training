@@ -18,7 +18,8 @@ class App extends Component {
     movies: [],
     moviesWillWatch: [],
     tabSelected: 'now_playing',
-    loading: false
+    loading: false,
+    error: false
   };
 
   componentDidMount() {
@@ -35,12 +36,12 @@ class App extends Component {
     this.setState({ loading: true });
     getData(
       `movie/${this.state.tabSelected}?api_key=${API_KEY}&language=en-US&page=1`
-    ).then(({ results }) => this.setState({ movies: results, loading: false }));
+    )
+      .then(({ results }) => this.setState({ movies: results, loading: false }))
+      .catch(err => this.setState({ error: true }));
   };
 
-  handleSelectTab = query => {
-    this.setState({ tabSelected: query });
-  };
+  handleSelectTab = query => this.setState({ tabSelected: query });
 
   handleDeleteMovie = movie => {
     const updateMovies = this.state.movies.filter(item => item.id !== movie.id);
@@ -64,7 +65,18 @@ class App extends Component {
   };
 
   render() {
-    const { movies, moviesWillWatch, tabs, tabSelected, loading } = this.state;
+    const {
+      movies,
+      moviesWillWatch,
+      tabs,
+      tabSelected,
+      loading,
+      error
+    } = this.state;
+
+    if (error) {
+      return <h4>Oops! Something has gone wrong!</h4>;
+    }
 
     return (
       <div className='container-fluid'>

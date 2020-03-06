@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const Tab = ({ info: { label, query }, tabSelected, handleSelectTab }) => {
@@ -12,12 +13,19 @@ const Tab = ({ info: { label, query }, tabSelected, handleSelectTab }) => {
   });
 
   return (
-    <>
-      <a className={classes} href='#' onClick={onTabSelected}>
-        {label}
-      </a>
-    </>
+    <a className={classes} href='#' onClick={onTabSelected}>
+      {label}
+    </a>
   );
+};
+
+Tab.propTypes = {
+  info: PropTypes.shape({
+    label: PropTypes.string,
+    query: PropTypes.string
+  }),
+  tabSelected: PropTypes.string,
+  handleSelectTab: PropTypes.func
 };
 
 export default Tab;

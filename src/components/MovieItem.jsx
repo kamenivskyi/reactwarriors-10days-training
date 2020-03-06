@@ -8,6 +8,10 @@ class MovieItem extends React.Component {
     isWillWatch: false
   };
 
+  componentWillUnmount() {
+    console.log('unmount');
+  }
+
   toggleWillWatch = () => {
     const { item, deleteFromWillWatch, addToWillWatch } = this.props;
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import MovieItem from './MovieItem';
 
@@ -22,5 +23,12 @@ const MovieList = ({
     </div>
   </div>
 );
+
+MovieList.propTypes = {
+  movies: PropTypes.array.isRequired,
+  handleDeleteMovie: PropTypes.func.isRequired,
+  deleteFromWillWatch: PropTypes.func.isRequired,
+  addToWillWatch: PropTypes.func.isRequired
+};
 
 export default MovieList;
