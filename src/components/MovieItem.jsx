@@ -8,10 +8,6 @@ class MovieItem extends React.Component {
     isWillWatch: false
   };
 
-  componentWillUnmount() {
-    console.log('unmount');
-  }
-
   toggleWillWatch = () => {
     const { item, deleteFromWillWatch, addToWillWatch } = this.props;
 
@@ -41,26 +37,18 @@ class MovieItem extends React.Component {
             <p className='card-text'>Rating: {vote_average}</p>
 
             {isWillWatch ? (
-              <Button
-                label='Remove willwatch'
-                colorType='success'
-                onClick={this.toggleWillWatch}
-                block
-              />
+              <Button colorType='success' onClick={this.toggleWillWatch} block>
+                Remove willwatch
+              </Button>
             ) : (
-              <Button
-                label='Will watch'
-                colorType='dark'
-                onClick={this.toggleWillWatch}
-                block
-              />
+              <Button colorType='dark' onClick={this.toggleWillWatch} block>
+                Will watch
+              </Button>
             )}
 
-            <Button
-              label='Delete movie'
-              colorType='danger'
-              onClick={() => onDeleteMovie(item)}
-            />
+            <Button colorType='danger' onClick={() => onDeleteMovie(item)}>
+              Delete movie
+            </Button>
           </div>
         </div>
       </div>

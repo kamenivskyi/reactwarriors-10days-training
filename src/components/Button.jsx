@@ -1,7 +1,8 @@
 import React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-const Button = ({ type, label, block, colorType, ...rest }) => {
+const Button = ({ type, children, block, colorType, className, ...rest }) => {
   let blockStyles = '';
 
   if (block) {
@@ -10,11 +11,11 @@ const Button = ({ type, label, block, colorType, ...rest }) => {
     blockStyles = {};
   }
 
-  const classes = `btn btn-${colorType}`;
+  const classes = classNames('btn', className, { [`btn-${colorType}`]: true });
 
   return (
     <button type={type} className={classes} style={blockStyles} {...rest}>
-      {label}
+      {children}
     </button>
   );
 };
@@ -27,7 +28,7 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
-  label: PropTypes.oneOfType([
+  children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.node

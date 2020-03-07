@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import Tabs from './Tabs';
 import MovieList from './MovieList';
 import WillWatchList from './WillWatchList';
+import Pagination from './Pagination';
 
 import { getData } from '../services/api/getData';
 import { API_KEY } from '../services/api/config';
+import { tabs } from '../services/tabsList';
 
-class App extends Component {
+class App extends PureComponent {
   state = {
-    tabs: [
-      { label: 'Now playing', query: 'now_playing' },
-      { label: 'Upcoming', query: 'upcoming' },
-      { label: 'Popular', query: 'popular' },
-      { label: 'Top rated', query: 'top_rated' }
-    ],
     movies: [],
     moviesWillWatch: [],
-    tabSelected: 'now_playing',
+    allData: {},
+    tabSelected: 'revenue.desc',
+    pageSelected: 1,
+    minVote: '5000',
     loading: false,
     error: false
   };
@@ -27,17 +26,24 @@ class App extends Component {
   }
 
   componentDidUpdate(_, prevState) {
-    if (prevState.tabSelected !== this.state.tabSelected) {
+    if (
+      prevState.tabSelected !== this.state.tabSelected ||
+      prevState.pageSelected !== this.state.pageSelected
+    ) {
       this.updateMovies();
     }
   }
 
   updateMovies = () => {
+    const { pageSelected, tabSelected, minVote } = this.state;
+
     this.setState({ loading: true });
     getData(
-      `movie/${this.state.tabSelected}?api_key=${API_KEY}&language=en-US&page=1`
+      `/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=${tabSelected}&include_adult=false&include_video=false&page=${pageSelected}&vote_count.gte=${minVote}`
     )
-      .then(({ results }) => this.setState({ movies: results, loading: false }))
+      .then(data =>
+        this.setState({ movies: data.results, loading: false, allData: data })
+      )
       .catch(err => this.setState({ error: true }));
   };
 
@@ -48,6 +54,11 @@ class App extends Component {
     this.deleteFromWillWatch(movie);
 
     this.setState({ movies: updateMovies });
+  };
+
+  handlePageChange = page => {
+    console.log(page);
+    this.setState({ pageSelected: page });
   };
 
   addToWillWatch = movie => {
@@ -68,11 +79,13 @@ class App extends Component {
     const {
       movies,
       moviesWillWatch,
-      tabs,
+      allData,
       tabSelected,
       loading,
       error
     } = this.state;
+
+    const { total_pages, page } = allData;
 
     if (error) {
       return <h4>Oops! Something has gone wrong!</h4>;
@@ -101,6 +114,11 @@ class App extends Component {
               </>
             )}
           </div>
+          <Pagination
+            currentPage={page}
+            totalPages={total_pages}
+            handlePageChange={this.handlePageChange}
+          />
         </div>
       </div>
     );

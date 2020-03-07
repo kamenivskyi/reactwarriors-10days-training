@@ -19,7 +19,7 @@ WillWatchList.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      vote_average: PropTypes.string
+      vote_average: PropTypes.number
     })
   )
 };
